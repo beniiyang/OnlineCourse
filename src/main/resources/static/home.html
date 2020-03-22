@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="https://cdn.staticfile.org/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet"></link>
+<script src="https://cdn.staticfile.org/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.staticfile.org/moment.js/2.22.0/moment-with-locales.js"></script>
+<script src="https://cdn.staticfile.org/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+<title>Online Technical Course</title>
+<style type="text/css">
+	.myrow {
+				display: flex;
+				flex-direction: row;
+				/*margin-left:1em;*/
+		}		
+		.xxxx {
+				height: 2px;
+				background: #999999;
+				margin-top: 16px;
+				width: 2em;
+				margin-left: 1em;
+				margin-right: 1em;
+		}
+	
+</style>
+
+</head>
+<body>
+<h2>Online Technical Course</h2>
+<form action = "/user/search" method = "post">
+	<table>
+		<tr>
+			<td>Mentor Name:  </td>
+			<td><input type="text" name="mentor_name"/></td>
+		</tr>
+		<tr>
+			<td>Course Name:  </td>
+			<td><input type="text" name="tech_name"/></td>
+		</tr>
+		<tr>
+			<td>Time Period: </td>
+			<td>
+				<div class="myrow">
+ 
+				<div class='input-group date' style="width: 14em;" id='datetimepicker1'>
+					<input type='text' class="timeInput form-control" name="date_from"/>
+					<span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+				<div class="xxxx">
+ 				
+				</div>
+				<div class='input-group date' style="width: 14em;" id='datetimepicker2'>
+					<input type='text' class="timeInput form-control" name="date_to"/>
+					<span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+					</span>
+				</div>
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td><button type="submit">Search</button>
+			</td>
+		</tr>
+	</table>
+</form>
+
+<div class="content" >
+	<table class="table table-hover">
+		<thead>
+		    <tr>
+		      <th>Mentor Name</th>
+		      <th>Technology Name</th>
+		      <th>Class Start Date</th>
+		      <th>Class End Date</th>
+		    </tr>
+	  </thead>
+	  <tbody th:each="info : ${infos}">
+	  	<tr>
+	  		<td><label th:text="${{info.mentorName}}"></label></td>
+	  		<td><label th:text="${{info.techName}}"></label></td>
+	  		<td><label th:text="${{info.courseStartDate}}" ></label>	 </td>
+	  		<td><label th:text="${{info.courseEndDate}}" ></label></td>
+	  	</tr>
+	  </tbody>
+	</table>
+</div>
+<script>
+			$(function() {
+				$('#form1').hide();
+				var picker1 = $('#datetimepicker1').datetimepicker({
+					format: 'YYYY-MM-DD',
+					locale: moment.locale('en'),
+					//minDate: '2016-7-1'
+				});
+				var picker2 = $('#datetimepicker2').datetimepicker({
+					format: 'YYYY-MM-DD',
+					locale: moment.locale('en')
+				});
+				//动态设置最小值
+				picker1.on('dp.change', function(e) {
+					picker2.data('DateTimePicker').minDate(e.date);
+				});
+				//动态设置最大值
+				picker2.on('dp.change', function(e) {
+					picker1.data('DateTimePicker').maxDate(e.date);
+				});
+				
+			});
+			/* $('#datetimepicker1').datetimepicker({
+				format: 'YYYY-MM-DD',
+				locale: moment.locale('zh-cn'),
+				defaultDate: "2018-1-1"
+			});
+			$('#datetimepicker2').datetimepicker({
+				format: 'YYYY-MM-DD',
+				locale: moment.locale('zh-cn'),
+				defaultDate: "2028-1-1" 
+			});*/
+		</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Training Details</title>
+</head>
+
+<body>
+<div>
+	<table>
+		<thead>
+		    <tr>
+		      <th>Technology Name</th>
+		      <th>Mentor Name</th>
+		      <th>Class Start Date</th>
+		      <th>Class End Date</th>
+		      <th>Status</th>
+		    </tr>
+	  </thead>
+	  <tbody th:each="training : ${trainingInfos">
+	  	<tr>
+	  		<td><label th:text="${{training.mentorName}}"></label></td>
+	  		<td><label th:text="${{training.techName}}"></label></td>
+	  		<td><label th:text="${{training.courseStartDate}}" ></label></td>
+	  		<td><label th:text="${{training.courseEndDate}}" ></label></td>
+	  		<td><label th:text="${{training.status}}" ></label></td>
+	  	</tr>
+	  </tbody>
+	</table>
+</div>
+</body>
+</html>
